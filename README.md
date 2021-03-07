@@ -1,4 +1,4 @@
-#thebeerhub-api
+# thebeerhub-api
 
 Simple Python Flask web API for storing data in Postgres
 
