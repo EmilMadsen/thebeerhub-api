@@ -1,10 +1,14 @@
-FROM python:3.7-alpine
-WORKDIR /code
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
-RUN apk add --no-cache gcc musl-dev linux-headers
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-EXPOSE 5000
-COPY . .
-CMD ["flask", "run"]
+FROM python:3.9.2-slim
+
+RUN apt-get update && apt-get install
+
+RUN apt-get install -y \
+  libpq-dev \
+  gcc \
+  && apt-get clean
+
+COPY requirements.txt /
+RUN pip install -r /requirements.txt
+COPY . /app
+WORKDIR /app
+ENTRYPOINT ["./gunicorn.sh"]

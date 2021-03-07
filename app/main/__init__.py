@@ -9,9 +9,12 @@ flask_bcrypt = Bcrypt()
 
 
 def create_app(config_name):
+    print("app config_name: ", config_name)
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
     flask_bcrypt.init_app(app)
 
     return app

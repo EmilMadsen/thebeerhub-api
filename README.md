@@ -23,13 +23,13 @@ Simple Python Flask web API for storing data in Postgres
 *setup postgres+adminer:*  
 ```docker-compose up```
 
-*apply db migrations:*  
+*run*  
+``python manage.py run``
+
+#### db migrations
 `` python manage.py db init``  
 `` python manage.py db migrate -m "initial database migration"``  
 `` python manage.py db upgrade`` 
-
-*run*  
-``python manage.py run``
 
 #### build?:
 

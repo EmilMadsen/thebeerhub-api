@@ -8,8 +8,8 @@ from app import blueprint
 from app.main import create_app, db
 from app.main.model import user
 
-
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
+# app = create_app('dev')
 app.register_blueprint(blueprint)
 
 app.app_context().push()
@@ -20,9 +20,11 @@ migrate = Migrate(app, db)
 
 manager.add_command('db', MigrateCommand)
 
+
 @manager.command
 def run():
     app.run()
+
 
 @manager.command
 def test():
@@ -32,6 +34,7 @@ def test():
     if result.wasSuccessful():
         return 0
     return 1
+
 
 if __name__ == '__main__':
     manager.run()

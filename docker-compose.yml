@@ -8,6 +8,7 @@ services :
       POSTGRES_USER: devuser
       POSTGRES_PASSWORD: devpassword
       POSTGRES_DB: brews
+
   admin:
     image: adminer
     restart: always
@@ -15,3 +16,13 @@ services :
       - db
     ports:
       - 8080:8080
+
+  api:
+    build: .
+    depends_on:
+      - db
+    environment:
+      SQLALCHEMY_DATABASE_URI: postgresql://devuser:devpassword@db/brews
+    ports:
+      - 5000:5000
+    restart: always

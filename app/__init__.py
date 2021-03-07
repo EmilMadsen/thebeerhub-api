@@ -11,7 +11,7 @@ blueprint = Blueprint('api', __name__)
 api = Api(blueprint,
           title='The Beer Club - Beerhub',
           version='1.0',
-          description='beer api for all kinds of data'
+          description='brew api for all kinds of data'
           )
 
 api.add_namespace(user_ns, path='/user')
