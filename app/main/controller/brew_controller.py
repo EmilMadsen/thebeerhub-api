@@ -1,7 +1,7 @@
 from flask import request
 from flask_restplus import Resource
 
-from ..util.dto import BrewDto
+from app.main.model.dto import BrewDto
 from ..service.brew_service import save_brew, get_all_brews, get_a_brew
 
 api = BrewDto.api
