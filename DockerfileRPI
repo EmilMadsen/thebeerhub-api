@@ -1,5 +1,5 @@
 # Use slim buster images
-FROM python:3.9.2-slim-buster
+FROM arm32v7/python:3.9.2-buster
 
 # Make a working directory
 RUN mkdir /app

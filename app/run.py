@@ -6,8 +6,7 @@ from flask_script import Manager
 from app import blueprint
 from app.main import create_app, db
 
-# TODO: run as something else.
-application = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
+application = create_app('prod')
 
 application.register_blueprint(blueprint)
 
