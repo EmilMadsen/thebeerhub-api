@@ -141,4 +141,4 @@ cython_debug/
 .idea
 
 # db
-app/main/flask_boilerplate_main.db
+app/main/flask_boilerplate_test.db
