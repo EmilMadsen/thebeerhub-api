@@ -14,7 +14,6 @@ class Brew(db.Model, SerializerMixin):
     location = db.Column(db.String(255))
     recipe = db.Column(db.String(255))
     brew_steps = db.relationship("BrewStep")
-    # brew_steps = db.Column(db.String(255))
     target_start_gravity = db.Column(db.Integer)
     actual_start_gravity = db.Column(db.Integer)
     target_end_gravity = db.Column(db.Integer)
