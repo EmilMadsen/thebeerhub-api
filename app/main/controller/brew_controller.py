@@ -21,6 +21,7 @@ class BrewList(Resource):
     @api.expect(_brew, validate=True)
     def post(self):
         """Creates a new Brew """
+        print(request.json)
         data = request.json
         return save_brew(data=data)
 

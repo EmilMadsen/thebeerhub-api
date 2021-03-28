@@ -1,6 +1,16 @@
 from flask_restplus import Namespace, fields
 
 
+class NullableString(fields.String):
+    __schema_type__ = ['string', 'null']
+    __schema_example__ = 'nullable string'
+
+
+class NullableInteger(fields.Integer):
+    __schema_type__ = ['integer', 'null']
+    __schema_example__ = 'nullable integer'
+
+
 class UserDto:
     api = Namespace('user', description='user related operations')
     user = api.model('user', {
@@ -12,17 +22,29 @@ class UserDto:
 
 
 class BrewDto:
+
     api = Namespace('brew', description='brew related operations')
+
+    brew_step = {
+        'id': fields.String(attribute='id'),
+        'parent_id': fields.String(attribute='parent_id'),
+        'name': fields.String(attribute='name'),
+        'index': fields.Integer(attribute='index'),
+        'started': fields.DateTime(attribute='index'),
+        'ended': fields.DateTime(attribute='index'),
+    }
+
     brew = api.model('brew', {
-        'id': fields.String(required=True, description='brew identifier'),
+        'id': NullableInteger(description='brew identifier'),
         'brew_name': fields.String(required=True, description='brew name'),
         'brew_type': fields.String(required=True, description='brew type'),
-        'datetime': fields.DateTime(description='brew date'),
-        'brewsters': fields.String(description='who brewed the brew'),
-        'location': fields.String(description='where was it brewed'),
-        'recipe': fields.String(description='link to recipe'),
-        'target_start_gravity': fields.Integer(description='target start gravity'),
-        'actual_start_gravity': fields.Integer(description='actual start gravity'),
-        'target_end_gravity': fields.Integer(description='target end gravity'),
-        'actual_end_gravity': fields.Integer(description='actual end gravity'),
+        'created': fields.DateTime(description='brew date'),
+        'brewsters': NullableString(description='who brewed the brew'),
+        'location': NullableString(description='where was it brewed'),
+        'recipe': NullableString(description='link to recipe'),
+        'target_start_gravity': NullableInteger(description='target start gravity'),
+        'actual_start_gravity': NullableInteger(description='actual start gravity'),
+        'target_end_gravity': NullableInteger(description='target end gravity'),
+        'actual_end_gravity': NullableInteger(description='actual end gravity'),
+        # 'brew_steps': fields.List(fields.Nested(brew_step)), // TODO
     })

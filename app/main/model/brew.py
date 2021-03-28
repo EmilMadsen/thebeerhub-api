@@ -9,10 +9,11 @@ class Brew(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     brew_name = db.Column(db.String(255), nullable=False)
     brew_type = db.Column(db.String(255), nullable=False)
-    datetime = db.Column(db.DateTime, nullable=False)
+    created = db.Column(db.DateTime, nullable=False)
     brewsters = db.Column(db.String(255))
     location = db.Column(db.String(255))
     recipe = db.Column(db.String(255))
+    brew_steps = db.relationship("BrewStep")
     # brew_steps = db.Column(db.String(255))
     target_start_gravity = db.Column(db.Integer)
     actual_start_gravity = db.Column(db.Integer)
@@ -24,3 +25,14 @@ class Brew(db.Model, SerializerMixin):
 
     def __repr__(self):
         return "<Brew '{}'>".format(self.brew_name)
+
+
+class BrewStep(db.Model, SerializerMixin):
+    __tablename__ = 'brew_step'
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('brew.id'))
+    name = db.Column(db.String(255))
+    index = db.Column(db.Integer)
+    started = db.Column(db.DateTime)
+    ended = db.Column(db.DateTime)
+
