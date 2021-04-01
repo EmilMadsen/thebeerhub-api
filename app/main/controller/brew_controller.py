@@ -2,7 +2,7 @@ from flask import request
 from flask_restplus import Resource
 
 from app.main.model.dto import BrewDto
-from ..service.brew_service import save_brew, get_all_brews, get_a_brew
+from ..service.brew_service import save_brew, get_all_brews, get_a_brew, delete_a_brew
 
 api = BrewDto.api
 _brew = BrewDto.brew
@@ -13,14 +13,12 @@ class BrewList(Resource):
     @api.doc('list_of_brews')
     @api.marshal_list_with(_brew, envelope='data')
     def get(self):
-        """List all brews"""
         return get_all_brews()
 
     @api.response(201, 'brew successfully created.')
     @api.doc('create or update brew')
     @api.expect(_brew, validate=True)
     def post(self):
-        """Creates a new Brew """
         print(request.json)
         data = request.json
         return save_brew(data=data)
@@ -39,3 +37,7 @@ class Brew(Resource):
             api.abort(404)
         else:
             return brew
+
+    @api.doc('delete a brew')
+    def delete(self, id):
+        return delete_a_brew(id)

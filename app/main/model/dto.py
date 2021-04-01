@@ -25,13 +25,11 @@ class BrewDto:
 
     api = Namespace('brew', description='brew related operations')
 
-    brew_step = api.model('BrewStep', {
+    image = api.model('Image', {
         'id': fields.String(attribute='id'),
         'parent_id': fields.String(attribute='parent_id'),
-        'name': fields.String(required=True, attribute='name'),
-        'index': fields.Integer(attribute='index'),
-        'started': fields.DateTime(attribute='started'),
-        'ended': fields.DateTime(attribute='ended'),
+        'url': fields.String(required=True, attribute='url'),
+        'created': fields.DateTime(attribute='created'),
     })
 
     brew = api.model('brew', {
@@ -42,9 +40,25 @@ class BrewDto:
         'brewsters': NullableString(description='who brewed the brew'),
         'location': NullableString(description='where was it brewed'),
         'recipe': NullableString(description='link to recipe'),
+        'description': NullableString(description='description'),
         'target_start_gravity': NullableInteger(description='target start gravity'),
         'actual_start_gravity': NullableInteger(description='actual start gravity'),
         'target_end_gravity': NullableInteger(description='target end gravity'),
         'actual_end_gravity': NullableInteger(description='actual end gravity'),
-        'brew_steps': fields.List(fields.Nested(brew_step)),
+        'images': fields.List(fields.Nested(image)),
+    })
+
+
+class BrewStepDto:
+
+    api = Namespace('brew step', description='step related operations')
+
+    step = api.model('step', {
+        'id': NullableInteger(description='step identifier'),
+        'parent_id': NullableInteger(description='parent identifier'),
+        'name': fields.String(required=True, description='step name'),
+        'description': NullableString(description='description'),
+        'index': NullableInteger(description='index'),
+        'started': fields.DateTime(description='started timestamp'),
+        'ended': fields.DateTime(description='ended timestamp'),
     })

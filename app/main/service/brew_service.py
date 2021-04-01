@@ -2,7 +2,9 @@ import datetime
 import jsons
 from typing import List
 from app.main import db
-from app.main.model.brew import Brew, BrewStep
+from app.main.model.brew import Brew
+from app.main.model.image import Image
+from app.main.service.step_service import initialize_steps
 
 
 def save_brew(data):
@@ -10,13 +12,12 @@ def save_brew(data):
     # TODO: find a better way to deserialize nested values
     brew = jsons.load(data, Brew)
     if "brew_steps" in data:
-        brew.brew_steps = jsons.load(data["brew_steps"], List[BrewStep])
+        brew.images = jsons.load(data["images"], List[Image])
 
     if "id" not in data:
         brew.created = datetime.datetime.utcnow()
-        # TODO:
-        # steps: opvarmning, mæskning, eftergydning, urtkogning, urtkøling
         create(brew)
+        initialize_steps(brew.id)
         return brew.to_dict(), 201
     else:
         update(brew)
@@ -31,9 +32,16 @@ def get_a_brew(id):
     return Brew.query.filter_by(id=id).first()
 
 
+def delete_a_brew(id):
+    db.session.query(Brew).filter(Brew.id == id).delete()
+    db.session.commit()
+    return None
+
+
 def create(data):
     db.session.add(data)
     db.session.commit()
+
 
 def update(data):
     db.session.merge(data)
