@@ -25,14 +25,14 @@ class BrewDto:
 
     api = Namespace('brew', description='brew related operations')
 
-    brew_step = {
+    brew_step = api.model('BrewStep', {
         'id': fields.String(attribute='id'),
         'parent_id': fields.String(attribute='parent_id'),
-        'name': fields.String(attribute='name'),
+        'name': fields.String(required=True, attribute='name'),
         'index': fields.Integer(attribute='index'),
-        'started': fields.DateTime(attribute='index'),
-        'ended': fields.DateTime(attribute='index'),
-    }
+        'started': fields.DateTime(attribute='started'),
+        'ended': fields.DateTime(attribute='ended'),
+    })
 
     brew = api.model('brew', {
         'id': NullableInteger(description='brew identifier'),
@@ -46,5 +46,5 @@ class BrewDto:
         'actual_start_gravity': NullableInteger(description='actual start gravity'),
         'target_end_gravity': NullableInteger(description='target end gravity'),
         'actual_end_gravity': NullableInteger(description='actual end gravity'),
-        # 'brew_steps': fields.List(fields.Nested(brew_step)), // TODO
+        'brew_steps': fields.List(fields.Nested(brew_step)),
     })
