@@ -21,7 +21,7 @@ class StepList(Resource):
 class Step(Resource):
     @api.response(200, 'step successfully updated.')
     @api.doc('update brew step')
-    @api.expect(_step, validate=True)
+    @api.expect(_step)
     def post(self):
         data = request.json
         return update_step(data=data)
