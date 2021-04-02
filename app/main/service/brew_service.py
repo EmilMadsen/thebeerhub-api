@@ -4,7 +4,7 @@ from typing import List
 from app.main import db
 from app.main.model.brew import Brew
 from app.main.model.image import Image
-from app.main.service.step_service import initialize_steps
+from app.main.service.step_service import initialize_steps, delete_steps_by_parent_id
 
 
 def save_brew(data):
@@ -33,6 +33,7 @@ def get_a_brew(id):
 
 
 def delete_a_brew(id):
+    delete_steps_by_parent_id(id)
     db.session.query(Brew).filter(Brew.id == id).delete()
     db.session.commit()
     return None

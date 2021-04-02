@@ -2,7 +2,7 @@ from flask import request
 from flask_restplus import Resource
 
 from app.main.model.dto import BrewStepDto
-from ..service.step_service import get_steps, update_step
+from ..service.step_service import get_steps_by_parent_id, update_step
 
 api = BrewStepDto.api
 _step = BrewStepDto.step
@@ -14,7 +14,7 @@ class StepList(Resource):
     @api.doc('list_of_brew_steps')
     @api.marshal_list_with(_step, envelope='data')
     def get(self, parent_id):
-        return get_steps(parent_id)
+        return get_steps_by_parent_id(parent_id)
 
 
 @api.route('/')

@@ -4,7 +4,6 @@ from app.main.model.step import BrewStep
 
 
 def initialize_steps(parent_id):
-    # steps: opvarmning, mæskning, eftergydning, urtkogning, urtkøling
     create(BrewStep(parent_id=parent_id, name='opvarmning', index=1))
     create(BrewStep(parent_id=parent_id, name='mæskning', index=2))
     create(BrewStep(parent_id=parent_id, name='eftergydning', index=3))
@@ -18,8 +17,13 @@ def update_step(data):
     return step.to_dict(), 200
 
 
-def get_steps(parent_id):
+def get_steps_by_parent_id(parent_id):
     return BrewStep.query.filter_by(parent_id=parent_id).all()
+
+
+def delete_steps_by_parent_id(parent_id):
+    BrewStep.query.filter_by(parent_id=parent_id).delete()
+    db.session.commit()
 
 
 def create(data):
