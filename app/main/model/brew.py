@@ -9,7 +9,7 @@ class Brew(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     brew_name = db.Column(db.String(255), nullable=False)
     brew_type = db.Column(db.String(255), nullable=False)
-    created = db.Column(db.DateTime, nullable=False)
+    created = db.Column(db.DateTime(timezone=True), nullable=False)
     brewsters = db.Column(db.String(255))
     location = db.Column(db.String(255))
     recipe = db.Column(db.String(255))

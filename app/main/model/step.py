@@ -11,8 +11,8 @@ class BrewStep(db.Model, SerializerMixin):
     name = db.Column(db.String(255))
     description = db.Column(db.String(255))
     index = db.Column(db.Integer)
-    started = db.Column(db.DateTime)
-    ended = db.Column(db.DateTime)
+    started = db.Column(db.DateTime(timezone=True))
+    ended = db.Column(db.DateTime(timezone=True))
 
     # def __init__(self, parent_id, name, index):
     #     self.parent_id = parent_id

@@ -9,7 +9,7 @@ class Image(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('brew.id'))
     url = db.Column(db.String(255), nullable=False)
-    created = db.Column(db.DateTime, nullable=False)
+    created = db.Column(db.DateTime(timezone=True), nullable=False)
 
     # size? mime? other?
     # step relation?

@@ -18,7 +18,7 @@ def update_step(data):
 
 
 def get_steps_by_parent_id(parent_id):
-    return BrewStep.query.filter_by(parent_id=parent_id).all()
+    return BrewStep.query.filter_by(parent_id=parent_id).order_by(BrewStep.index).all()
 
 
 def delete_steps_by_parent_id(parent_id):
