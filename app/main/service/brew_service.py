@@ -18,14 +18,14 @@ def save_brew(data):
         brew.created = datetime.datetime.utcnow()
         create(brew)
         initialize_steps(brew.id)
-        return brew.to_dict(), 201
+        return brew, 201
     else:
         update(brew)
-        return brew.to_dict(), 200
+        return brew, 200
 
 
 def get_all_brews():
-    return Brew.query.all()
+    return Brew.query.order_by(Brew.created.desc()).all()
 
 
 def get_a_brew(id):

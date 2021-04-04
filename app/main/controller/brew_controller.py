@@ -18,6 +18,7 @@ class BrewList(Resource):
     @api.response(201, 'brew successfully created.')
     @api.doc('create or update brew')
     @api.expect(_brew, validate=True)
+    @api.marshal_with(_brew)
     def post(self):
         print(request.json)
         data = request.json

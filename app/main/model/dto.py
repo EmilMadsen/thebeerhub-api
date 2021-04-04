@@ -56,9 +56,10 @@ class BrewStepDto:
     step = api.model('step', {
         'id': NullableInteger(description='step identifier'),
         'parent_id': NullableInteger(description='parent identifier'),
+        'next_step': NullableInteger(description='id of next step'),
+        'index': NullableInteger(description='index'),
         'name': fields.String(required=True, description='step name'),
         'description': NullableString(description='description'),
-        'index': NullableInteger(description='index'),
         'started': fields.DateTime(description='started timestamp'),
         'ended': fields.DateTime(description='ended timestamp'),
     })
