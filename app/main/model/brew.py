@@ -14,13 +14,13 @@ class Brew(db.Model, SerializerMixin):
     location = db.Column(db.String(255))
     recipe = db.Column(db.String(255))
     description = db.Column(db.String(255))
+    tilt_url = db.Column(db.String(255))
     target_start_gravity = db.Column(db.Integer)
     actual_start_gravity = db.Column(db.Integer)
     target_end_gravity = db.Column(db.Integer)
     actual_end_gravity = db.Column(db.Integer)
     images = db.relationship("Image")
 
-    # brew_steps = db.relationship("BrewStep")
     # fermentation_logs = db.Column(db.String(255))
 
     def __repr__(self):

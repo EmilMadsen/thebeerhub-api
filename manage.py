@@ -17,6 +17,11 @@ manager = Manager(app)
 
 migrate = Migrate(app, db)
 
+# apply any/all pending migrations.
+with app.app_context():
+    from flask_migrate import upgrade as _upgrade
+    _upgrade()
+
 manager.add_command('db', MigrateCommand)
 
 
