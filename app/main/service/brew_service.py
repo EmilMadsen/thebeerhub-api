@@ -1,34 +1,49 @@
 import datetime
-
+import jsons
+from typing import List
 from app.main import db
 from app.main.model.brew import Brew
+from app.main.model.image import Image
+from app.main.service.step_service import initialize_steps, delete_steps_by_parent_id
 
 
 def save_brew(data):
+
+    # TODO: find a better way to deserialize nested values
+    brew = jsons.load(data, Brew)
+    if "brew_steps" in data:
+        brew.images = jsons.load(data["images"], List[Image])
+
     if "id" not in data:
-        new_brew = Brew(
-            brew_name=data['brew_name'],
-            brew_type=data['brew_type'],
-            datetime=datetime.datetime.utcnow()
-        )
-        save_changes(new_brew)
-        return new_brew.to_dict(), 201
+        brew.created = datetime.datetime.utcnow()
+        create(brew)
+        initialize_steps(brew.id)
+        return brew, 201
     else:
-        existing = Brew.query.get(data['id'])
-        existing.brew_name = data['brew_name']
-        existing.brew_type = data['brew_type']
-        save_changes(existing)
-        return existing.to_dict(), 200
+        update(brew)
+        return brew, 200
 
 
 def get_all_brews():
-    return Brew.query.all()
+    return Brew.query.order_by(Brew.created.desc()).all()
 
 
 def get_a_brew(id):
     return Brew.query.filter_by(id=id).first()
 
 
-def save_changes(data):
+def delete_a_brew(id):
+    delete_steps_by_parent_id(id)
+    db.session.query(Brew).filter(Brew.id == id).delete()
+    db.session.commit()
+    return None
+
+
+def create(data):
     db.session.add(data)
+    db.session.commit()
+
+
+def update(data):
+    db.session.merge(data)
     db.session.commit()

@@ -6,10 +6,9 @@ from flask_script import Manager
 
 from app import blueprint
 from app.main import create_app, db
-from app.main.model import user
 
 app = create_app(os.getenv('BOILERPLATE_ENV') or 'dev')
-# app = create_app('dev')
+
 app.register_blueprint(blueprint)
 
 app.app_context().push()
@@ -17,6 +16,11 @@ app.app_context().push()
 manager = Manager(app)
 
 migrate = Migrate(app, db)
+
+# apply any/all pending migrations.
+with app.app_context():
+    from flask_migrate import upgrade as _upgrade
+    _upgrade()
 
 manager.add_command('db', MigrateCommand)
 

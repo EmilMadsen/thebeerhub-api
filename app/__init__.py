@@ -5,6 +5,7 @@ from flask import Blueprint
 
 from .main.controller.user_controller import api as user_ns
 from .main.controller.brew_controller import api as brew_ns
+from .main.controller.step_controller import api as step_ns
 
 blueprint = Blueprint('api', __name__)
 
@@ -16,3 +17,4 @@ api = Api(blueprint,
 
 api.add_namespace(user_ns, path='/user')
 api.add_namespace(brew_ns, path='/brew')
+api.add_namespace(step_ns, path='/step')
