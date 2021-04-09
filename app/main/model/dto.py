@@ -40,6 +40,7 @@ class BrewDto:
         'brewsters': NullableString(description='who brewed the brew'),
         'location': NullableString(description='where was it brewed'),
         'recipe': NullableString(description='link to recipe'),
+        'tilt_url': NullableString(description='tilt url'),
         'description': NullableString(description='description'),
         'target_start_gravity': NullableInteger(description='target start gravity'),
         'actual_start_gravity': NullableInteger(description='actual start gravity'),

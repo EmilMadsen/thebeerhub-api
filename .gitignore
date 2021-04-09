@@ -107,9 +107,9 @@ celerybeat.pid
 # Environments
 .env
 .venv
+env/
 venv/
-venv/
-venv/
+ENV/
 env.bak/
 venv.bak/
 
@@ -142,6 +142,7 @@ cython_debug/
 /app/main/service/token.pickle
 /app/main/service/client_secret_882546321084-mhrogt5i184i7c11qav25k0rbe53v4dg.apps.googleusercontent.com.json
 
+.DS_Store
 
 # db
 app/main/flask_boilerplate_test.db

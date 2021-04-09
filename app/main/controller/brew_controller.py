@@ -3,6 +3,7 @@ from flask_restplus import Resource
 
 from app.main.model.dto import BrewDto
 from ..service.brew_service import save_brew, get_all_brews, get_a_brew, delete_a_brew
+from ..service import tilt_service
 
 api = BrewDto.api
 _brew = BrewDto.brew
@@ -42,3 +43,11 @@ class Brew(Resource):
     @api.doc('delete a brew')
     def delete(self, id):
         return delete_a_brew(id)
+
+
+@api.route('/job/tilt')
+class FetchJob(Resource):
+    def get(self):
+        tilt_service.fetch_tilt_data("https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=0")
+
+
