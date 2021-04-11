@@ -48,6 +48,12 @@ class Brew(Resource):
 @api.route('/job/tilt')
 class FetchJob(Resource):
     def get(self):
-        tilt_service.fetch_tilt_data("https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=0")
+        tilt_service.update_all_tilt_data()
 
+
+@api.route('/job/tilt/<brew_id>')
+@api.param('brew_id', 'The brew id')
+class FetchJob(Resource):
+    def get(self, brew_id):
+        tilt_service.update_brew_tilt_data(brew_id)
 

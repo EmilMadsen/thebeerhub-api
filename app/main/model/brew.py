@@ -21,7 +21,7 @@ class Brew(db.Model, SerializerMixin):
     actual_end_gravity = db.Column(db.Integer)
     images = db.relationship("Image")
 
-    # fermentation_logs = db.Column(db.String(255))
+    tilt_logs = db.relationship("TiltLog")
 
     def __repr__(self):
         return "<Brew '{}'>".format(self.brew_name)

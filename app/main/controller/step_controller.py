@@ -3,7 +3,6 @@ from flask_restplus import Resource
 
 from..service import step_service
 from app.main.model.dto import BrewStepDto
-# from ..service.step_service import get_steps_by_parent_id, update_step
 
 api = BrewStepDto.api
 _step = BrewStepDto.step

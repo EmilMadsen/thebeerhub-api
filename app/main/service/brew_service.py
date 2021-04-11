@@ -28,6 +28,10 @@ def get_all_brews():
     return Brew.query.order_by(Brew.created.desc()).all()
 
 
+def get_all_tiltable_brews():
+    return Brew.query.filter(Brew.tilt_url is not None).all()
+
+
 def get_a_brew(id):
     return Brew.query.filter_by(id=id).first()
 
