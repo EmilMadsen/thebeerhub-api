@@ -16,7 +16,7 @@ def update_all_tilt_data():
         fetch_tilt_data(brew)
 
 
-# test: "https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=0"
+# test: "https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=734290882"
 def update_brew_tilt_data(brew_id):
     brew = brew_service.get_a_brew(brew_id)
     if brew.tilt_url is not None:

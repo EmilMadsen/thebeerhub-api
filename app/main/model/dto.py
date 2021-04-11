@@ -32,14 +32,6 @@ class BrewDto:
         'created': fields.DateTime(attribute='created'),
     })
 
-    tilt_log = api.model('TiltLog', {
-        'id': fields.String(attribute='id'),
-        'parent_id': fields.String(attribute='parent_id'),
-        # 'timestamp': fields.DateTime(attribute='timestamp'),
-        'gravity': fields.Integer(attribute='timestamp'),
-        'temperature': fields.Float(attribute='temperature'),
-    })
-
     brew = api.model('brew', {
         'id': NullableInteger(description='brew identifier'),
         'brew_name': fields.String(required=True, description='brew name'),
