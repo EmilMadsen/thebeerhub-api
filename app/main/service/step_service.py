@@ -8,9 +8,11 @@ from app.main.model.step import BrewStep
 def initialize_steps(parent_id):
 
     # link each step to the next.
-    step = BrewStep(parent_id=parent_id, name='urtkøling', index=5)
+    step = BrewStep(parent_id=parent_id, name='urtkøling', index=6)
     create(step)
-    step = BrewStep(parent_id=parent_id, name='urtkogning', next_step=step.id, index=4)
+    step = BrewStep(parent_id=parent_id, name='urtkogning', next_step=step.id, index=5)
+    create(step)
+    step = BrewStep(parent_id=parent_id, name='opkogning', next_step=step.id, index=4)
     create(step)
     step = BrewStep(parent_id=parent_id, name='eftergydning', next_step=step.id, index=3)
     create(step)

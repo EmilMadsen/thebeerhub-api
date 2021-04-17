@@ -40,12 +40,14 @@ class BrewDto:
         'brewsters': NullableString(description='who brewed the brew'),
         'location': NullableString(description='where was it brewed'),
         'recipe': NullableString(description='link to recipe'),
+        'tilt_url': NullableString(description='tilt url'),
         'description': NullableString(description='description'),
         'target_start_gravity': NullableInteger(description='target start gravity'),
         'actual_start_gravity': NullableInteger(description='actual start gravity'),
         'target_end_gravity': NullableInteger(description='target end gravity'),
         'actual_end_gravity': NullableInteger(description='actual end gravity'),
         'images': fields.List(fields.Nested(image)),
+
     })
 
 
@@ -62,4 +64,18 @@ class BrewStepDto:
         'description': NullableString(description='description'),
         'started': fields.DateTime(description='started timestamp'),
         'ended': fields.DateTime(description='ended timestamp'),
+    })
+
+
+class TiltLogDto:
+
+    api = Namespace('tilt log', description='brew tilt log related operations')
+
+    tilt_log = api.model('tilt_log', {
+        'id': fields.String(description='tilt log identifier'),
+        'parent_id': fields.Integer(description='parent identifier'),
+        'timestamp': fields.DateTime(description='timestamp'),
+        'gravity': fields.Integer(description='gravity'),
+        'temperature': fields.Float(description='temperature'),
+
     })
