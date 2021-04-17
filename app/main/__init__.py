@@ -29,8 +29,5 @@ def create_app(config_name):
     return app
 
 
-
 def scheduled_job():
-    print("running job")
-    print(datetime.now())
-#  scheduled_task.run()
+    scheduled_task.run()
