@@ -14,3 +14,9 @@ class StepList(Resource):
     def get(self, parent_id):
         return tilt_service.get_tilt_logs_by_brew_id(parent_id)
 
+
+@api.route('/start/jobs')
+class FetchJob(Resource):
+    def post(self):
+        tilt_service.update_all_tilt_data()
+
