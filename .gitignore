@@ -146,3 +146,4 @@ cython_debug/
 
 # db
 app/main/flask_boilerplate_test.db
+app/main/flask_boilerplate_main.db

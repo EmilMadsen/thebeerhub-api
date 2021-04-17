@@ -11,6 +11,7 @@ from app.main.service import brew_service
 
 
 def update_all_tilt_data():
+    print("update_all_tilt_data")
     brews = brew_service.get_all_tiltable_brews()
     for brew in brews:
         fetch_tilt_data(brew)
