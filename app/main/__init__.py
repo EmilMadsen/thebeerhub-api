@@ -23,7 +23,7 @@ def create_app(config_name):
     with app.app_context():
         db.create_all()
     flask_bcrypt.init_app(app)
-    scheduler.add_job(id='Scheduled Task', func=scheduled_job, trigger="interval", seconds=10)
+    scheduler.add_job(id='Scheduled Task', func=scheduled_job, trigger="interval", minutes=3)
     scheduler.start()
 
     return app

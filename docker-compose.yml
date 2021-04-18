@@ -3,13 +3,16 @@ services :
   db:
     image: postgres:10-alpine
     ports:
-      - "5432:5432"
+      - 15432:5432
     environment:
       POSTGRES_USER: devuser
       POSTGRES_PASSWORD: devpassword
       POSTGRES_DB: brews
     networks:
       - brew-net
+    volumes:
+      - /volume1/docker/postgres-data:/var/lib/postgresql/data
+#      - docker/postgres-data:/var/lib/postgresql/data
 
   admin:
     image: adminer
@@ -17,19 +20,31 @@ services :
     depends_on:
       - db
     ports:
-      - 8081:8080
+      - 18080:8080
     networks:
       - brew-net
-#
-#  api:
-#    build: .
-#    depends_on:
-#      - db
-#    environment:
-#      DATABASE_URL: postgresql://devuser:devpassword@db/brews
-#    ports:
-#      - 5000:5000
-#    restart: always
+
+  api:
+    image: emilmadsen/thebeerhub-api:0.0.2
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://devuser:devpassword@192.168.0.52:15432/brews  # todo
+    ports:
+      - 15000:5000
+    restart: always
+    networks:
+      - brew-net
+
+  ui:
+    image: emilmadsen/thebeerhub-ui:0.0.2
+    depends_on:
+      - api
+    ports:
+      - 10080:80
+    restart: always
+    networks:
+      - brew-net
 
 networks:
   brew-net:

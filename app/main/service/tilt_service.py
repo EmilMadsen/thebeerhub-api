@@ -1,7 +1,6 @@
 from datetime import datetime
 
 import requests
-import logging
 import csv
 import codecs
 from contextlib import closing
@@ -11,19 +10,19 @@ from app.main.service import brew_service
 
 
 def update_all_tilt_data():
-    print("update_all_tilt_data")
+    print("checking all available tilt data")
     brews = brew_service.get_all_tiltable_brews()
     for brew in brews:
         fetch_tilt_data(brew)
 
 
-# test: "https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=734290882"
+# example: "https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=734290882"
 def update_brew_tilt_data(brew_id):
     brew = brew_service.get_a_brew(brew_id)
     if brew.tilt_url is not None:
         fetch_tilt_data(brew)
     else:
-        logging.warning('No tilt_url found on brew: ' + brew_id)
+        print('No tilt_url found on brew: ' + brew_id)
 
 
 def fetch_tilt_data(brew):
@@ -36,7 +35,7 @@ def fetch_tilt_data(brew):
                 tilt_log = build_log(row, brew)
                 existing = TiltLog.query.filter_by(id=tilt_log.id).first()
                 if not existing:
-                    logging.info('storing tilt log: ' + tilt_log.__repr__())
+                    print('storing tilt log: ' + tilt_log.__repr__())
                     save(tilt_log)
 
 

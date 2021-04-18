@@ -12,7 +12,7 @@ application.app_context().push()
 
 manager = Manager(application)
 
-migrate = Migrate(application, db, directory='../migrations')
+migrate = Migrate(application, db, directory='/app/migrations')
 
 # apply any/all pending migrations.
 with application.app_context():
