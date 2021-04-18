@@ -10,8 +10,6 @@ jobs:
     name: dockerize
     runs-on: [ubuntu-latest]
     if: github.event_name == 'push'
-    outputs:
-      environment: ${{ steps.variables.outputs.environment }}
     steps:
 
       - name: Checkout
