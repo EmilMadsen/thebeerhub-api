@@ -12,7 +12,6 @@ services :
       - brew-net
     volumes:
       - /volume1/docker/postgres-data:/var/lib/postgresql/data
-#      - docker/postgres-data:/var/lib/postgresql/data
 
   admin:
     image: adminer
@@ -25,7 +24,7 @@ services :
       - brew-net
 
   api:
-    image: emilmadsen/thebeerhub-api:0.0.2
+    image: emilmadsen/thebeerhub-api:latest
     depends_on:
       - db
     environment:
@@ -37,7 +36,7 @@ services :
       - brew-net
 
   ui:
-    image: emilmadsen/thebeerhub-ui:0.0.2
+    image: emilmadsen/thebeerhub-ui:latest
     depends_on:
       - api
     ports:
