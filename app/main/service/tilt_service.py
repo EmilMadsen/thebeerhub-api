@@ -13,7 +13,7 @@ def update_all_tilt_data():
     print("checking all available tilt data")
     brews = brew_service.get_all_tiltable_brews()
     for brew in brews:
-        fetch_tilt_data(brew)
+        update_brew_tilt_data(brew.id)
 
 
 # example: "https://docs.google.com/spreadsheets/d/1XWo5ZkoweSnvKIlnR0X1tuKgKaq7UcQgQrDI0cA_KpQ/export?format=csv&gid=734290882"
