@@ -26,13 +26,14 @@ class Step(Resource):
         return step_service.get_current_active_step(parent_id)
 
 
-@api.route('/parent/<parent_id>/next')
+@api.route('/parent/<parent_id>/next/<timestamp>')
 @api.param('parent_id', 'The parent brew id')
+@api.param('timestamp', 'The timestamp that the step should start/stop at')
 class Step(Resource):
     @api.doc('end current active and go to next step')
     @api.marshal_with(_step)
-    def post(self, parent_id):
-        return step_service.go_to_next_step(parent_id)
+    def post(self, parent_id, timestamp):
+        return step_service.go_to_next_step(parent_id, timestamp)
 
 
 @api.route('/')

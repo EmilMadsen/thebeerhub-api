@@ -29,7 +29,7 @@ def get_all_brews():
 
 
 def get_all_tiltable_brews():
-    return Brew.query.filter(Brew.tilt_url is not None).all()
+    return Brew.query.filter(Brew.tilt_url != None).all()
 
 
 def get_a_brew(id):

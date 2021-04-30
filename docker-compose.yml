@@ -10,8 +10,8 @@ services :
       POSTGRES_DB: brews
     networks:
       - brew-net
-    volumes:
-      - /volume1/docker/postgres-data:/var/lib/postgresql/data
+#    volumes:
+#      - /volume1/docker/postgres-data:/var/lib/postgresql/data
 
   admin:
     image: adminer
@@ -23,27 +23,27 @@ services :
     networks:
       - brew-net
 
-  api:
-    image: emilmadsen/thebeerhub-api:latest
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgresql://devuser:devpassword@192.168.0.52:15432/brews  # todo
-    ports:
-      - 15000:5000
-    restart: always
-    networks:
-      - brew-net
-
-  ui:
-    image: emilmadsen/thebeerhub-ui:latest
-    depends_on:
-      - api
-    ports:
-      - 10080:80
-    restart: always
-    networks:
-      - brew-net
+#  api:
+#    image: emilmadsen/thebeerhub-api:latest
+#    depends_on:
+#      - db
+#    environment:
+#      DATABASE_URL: postgresql://devuser:devpassword@192.168.0.52:15432/brews  # todo
+#    ports:
+#      - 15000:5000
+#    restart: always
+#    networks:
+#      - brew-net
+#
+#  ui:
+#    image: emilmadsen/thebeerhub-ui:latest
+#    depends_on:
+#      - api
+#    ports:
+#      - 10080:80
+#    restart: always
+#    networks:
+#      - brew-net
 
 networks:
   brew-net:

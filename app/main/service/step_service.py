@@ -1,5 +1,4 @@
-import datetime
-
+import dateutil.parser
 import jsons
 from app.main import db
 from app.main.model.step import BrewStep
@@ -46,23 +45,24 @@ def get_current_active_step(parent_id):
     return None
 
 
-def go_to_next_step(parent_id):
+def go_to_next_step(parent_id, timestamp):
 
     step = get_current_active_step(parent_id)
+    now = dateutil.parser.isoparse(timestamp)
 
     if step is not None:
         if step.started is None:
             # first step (not started yet)
-            step.started = datetime.datetime.utcnow()
+            step.started = now
             update(step)
             return step
         elif step.ended is None:
             # end current active & start next
-            step.ended = datetime.datetime.utcnow()
+            step.ended = now
             update(step)
             next_step = get_step_by_id(step.next_step)
             if next_step is not None:
-                next_step.started = datetime.datetime.utcnow()
+                next_step.started = now
                 update(next_step)
                 return next_step
 
